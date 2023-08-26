@@ -21,12 +21,14 @@ function SignUp() {
       body: JSON.stringify({ name, email, password }),
       headers: {
         "Content-Type": "application/json",
+        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
       },
     });
 
     result = await result.json();
     console.log(result);
-    localStorage.setItem("user", JSON.stringify(result));
+    localStorage.setItem("user", JSON.stringify(result.result));
+    localStorage.setItem("token", JSON.stringify(result.auth));
     navigate("/");
 
     setName("");
